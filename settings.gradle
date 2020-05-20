@@ -1,0 +1,3 @@
+rootProject.name = 'spring-cloud-gateway'
+
+include ':app'

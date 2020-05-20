@@ -1,0 +1,38 @@
+buildscript {
+    ext {
+        springBootVersion = '2.3.0.RELEASE'
+        springCloudVersion = 'Hoxton.SR4'
+        lombokVersion = '1.18.12'
+    }
+}
+
+group = 'com.my.poc'
+version = '0.0.1-SNAPSHOT'
+
+allprojects {
+    buildscript {
+		repositories {
+			mavenCentral()
+		}
+
+//		dependencies {
+//			classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+//		}
+
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	apply plugin: 'java'
+
+	dependencies {
+	//	compile "org.projectlombok:lombok:${lombokVersion}"
+	//	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	//	testCompile "org.projectlombok:lombok:${lombokVersion}"
+	//	testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	}
+}
+
+defaultTasks 'clean', 'build'
