@@ -23,6 +23,13 @@ public class GatewayApplication {
 				.build());
 	}
 
+	@GetMapping(value = "/api/secure-endpoint")
+	public ResponseEntity<Message> secureEndpoint() {
+		return ResponseEntity.ok(Message.builder()
+				.msg("You are an authorized user.  Thats why you are seeing this message.")
+				.build());
+	}
+
 }
 
 @Value
