@@ -5,14 +5,14 @@ spring:
         - id: api-microservice-one
           uri: ${microservice.one.url}
           predicates:
-            - Path=/api/**
+            - Path=/api/microservice-one/**
           filters:
             - name: CustomJwt
               args:
                 jwtTokenGenerator: "#{@jwtTokenGenerator}"
 
         - id: default
-          uri: ${app.ui.url}
+          uri: ${microservice.default.url}
           predicates:
             - Path=/**
 

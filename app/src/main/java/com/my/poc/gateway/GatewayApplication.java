@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.gateway.discovery.GatewayDiscoveryClientAutoConfiguration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class GatewayApplication {
 		SpringApplication.run(GatewayApplication.class, args);
 	}
 
+	// Unsecure endpoint
 	@GetMapping(value = "/api/hello")
 	public ResponseEntity<Message> helloWorld() {
 		return ResponseEntity.ok(Message.builder()
@@ -26,6 +28,7 @@ public class GatewayApplication {
 				.build());
 	}
 
+	// Secure endpoint
 	@GetMapping(value = "/api/secure-endpoint")
 	public ResponseEntity<Message> secureEndpoint() {
 		return ResponseEntity.ok(Message.builder()
