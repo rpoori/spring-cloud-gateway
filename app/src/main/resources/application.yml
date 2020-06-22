@@ -16,6 +16,9 @@ spring:
           predicates:
             - Path=/**
 
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+
 logging:
   level:
     org.springframwork.cloud.gateway: ${log.level:INFO}
