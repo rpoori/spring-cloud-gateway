@@ -1,7 +1,10 @@
 package com.my.poc.gateway;
 
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -16,6 +19,11 @@ public class BaseGatewayTest {
 
     @LocalServerPort
     protected int port = 0;
+
+    @Autowired
+    protected CircuitBreakerRegistry circuitBreakerRegistry;
+
+    protected CircuitBreaker circuitBreaker;
 
     protected String baseUri;
     protected WebClient webClient;
