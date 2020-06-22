@@ -5,16 +5,19 @@ import com.my.poc.gateway.document.CustomDocumentServerAuthenticationSuccessHand
 import com.my.poc.gateway.filters.JwtTokenGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 public class BeanConfig {
 
     @Bean
+    @Profile("!test")
     CustomReactiveAuthenticationManager customReactiveAuthenticationManager() {
         return new CustomReactiveAuthenticationManager();
     }
 
     @Bean
+    @Profile("!test")
     CustomSecurityContextRepository customSecurityContextRepository(
                     CustomReactiveAuthenticationManager customReactiveAuthenticationManager
             ) {

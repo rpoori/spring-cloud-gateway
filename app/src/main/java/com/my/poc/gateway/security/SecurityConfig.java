@@ -5,6 +5,7 @@ import com.my.poc.gateway.document.CustomDocumentServerAuthenticationConverter;
 import com.my.poc.gateway.document.CustomDocumentServerAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -12,6 +13,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.util.matcher.*;
 
 @EnableWebFluxSecurity
+@Profile("!test")
 public class SecurityConfig {
 
     @Autowired
