@@ -1,0 +1,25 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+bootJar {
+    enabled = false
+}
+
+group = 'com.my.poc'
+version = '0.0.1-SNAPSHOT'
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+dependencies {
+    testImplementation project(':app')
+}
+
+
+
