@@ -25,3 +25,7 @@ bootRun {
 	args = ["--spring.profiles.active=local"]
 }
 
+
+jar {
+	enabled = true
+}

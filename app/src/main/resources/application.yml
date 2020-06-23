@@ -15,6 +15,16 @@ spring:
                 name: ${circuit.breaker.identifier.default}
                 fallbackUri: forward:/fallback
 
+        - id: api-microservice-two
+          uri: ${microservice.two.url}
+          predicates:
+            - Path=/api/microservice-two/**
+          filters:
+            - name: CustomJwtPermissions
+              args:
+                jwtTokenGenerator: "#{@jwtTokenGenerator}"
+                rolesPermissionsService: "#{@rolesPermissionsService}"
+
         - id: default
           uri: ${microservice.default.url}
           predicates:

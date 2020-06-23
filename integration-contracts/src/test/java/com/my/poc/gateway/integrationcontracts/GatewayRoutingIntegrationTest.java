@@ -48,6 +48,9 @@ public class GatewayRoutingIntegrationTest {
     @Value("${microservice.one.url}")
     private String microserviceOneUrl;
 
+    @Value("${microservice.two.url}")
+    private String microserviceTwoUrl;
+
     @Value("${microservice.default.url}")
     private String microserviceDefaultUrl;
 
@@ -76,6 +79,8 @@ public class GatewayRoutingIntegrationTest {
         StepVerifier.create(routeLocator.getRoutes())
                 .expectNextMatches(r -> r.getId().equals("api-microservice-one")
                                 && r.getUri().equals(getURI(microserviceOneUrl)))
+                .expectNextMatches(r -> r.getId().equals("api-microservice-two")
+                        && r.getUri().equals(getURI(microserviceTwoUrl)))
                 .expectNextMatches(r -> r.getUri().equals(getURI(microserviceDefaultUrl)))
                 .expectComplete().verify();
     }

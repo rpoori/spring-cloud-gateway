@@ -18,6 +18,8 @@ dependencyManagement {
 }
 
 dependencies {
+   // compile project(':app').sourceSets.main.output
+   // implementation project(':app')
     testImplementation project(':app')
 }
 

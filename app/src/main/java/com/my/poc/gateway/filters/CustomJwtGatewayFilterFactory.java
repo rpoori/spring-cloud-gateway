@@ -21,9 +21,15 @@ public class CustomJwtGatewayFilterFactory extends AbstractGatewayFilterFactory<
                 .defaultIfEmpty(dummyPrincipal)
                 .flatMap(p -> {
                     String jwtToken = config.getJwtTokenGenerator().generate(p);
-                    exchange.getRequest().mutate()
-                            .headers(httpHeaders -> httpHeaders.replace(HttpHeaders.AUTHORIZATION, Arrays.asList(("Bearer " + jwtToken))))
-                            .build();
+                    if(exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+                        exchange.getRequest().mutate()
+                                .headers(httpHeaders -> httpHeaders.replace(HttpHeaders.AUTHORIZATION, Arrays.asList(("Bearer " + jwtToken))))
+                                .build();
+                    } else {
+                        exchange.getRequest().mutate()
+                                .headers(httpHeaders -> httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken))
+                                .build();
+                    }
                     return chain.filter(exchange);
                 });
     }
