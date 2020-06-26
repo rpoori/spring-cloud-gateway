@@ -3,6 +3,7 @@ package com.my.poc.gateway.filters;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -12,21 +13,22 @@ import java.util.LinkedHashMap;
 
 public class JwtTokenGenerator {
 
-    @Value("${ac.jwt.secret.key}")
+    @Value("${jwt.signing.key}")
     private String jwtSigningKey;
 
-    @Value("${ac.jwt.id}")
-    private String acJWTId;
+    @Value("${jwt.id}")
+    private String jwtId;
 
-    @Value("${ac.jwt.subject}")
-    private String acJWTSubject;
+    @Value("${jwt.subject}")
+    private String jwtSubject;
 
-    @Value("${ac.jwt.issuer}")
-    private String acJWTIssuer;
+    @Value("${jwt.issuer}")
+    private String jwtIssuer;
 
-    @Value("${ac.jwt.expiration.ttl.mins}")
-    private Long acJWTExpirationTtlInMinutes;
+    @Value("${jwt.expiration.ttl.mins}")
+    private Long jwtExpirationTtlInMinutes;
 
+    @SneakyThrows
     public String generate(Object... args) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         byte[] apiKeySecretBytes = jwtSigningKey.getBytes();
@@ -34,21 +36,20 @@ public class JwtTokenGenerator {
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
         LinkedHashMap linkedHashMap = new LinkedHashMap();
-
         if(args.length > 1) {
             linkedHashMap.put("permissions", args[1]);
         }
 
         JwtBuilder jwtBuilder = Jwts.builder()
-                .setId(acJWTId)
+                .setId(jwtId)
                 .setIssuedAt(now)
-                .setSubject(acJWTSubject)
-                .setIssuer(acJWTIssuer)
+                .setSubject(jwtSubject)
+                .setIssuer(jwtIssuer)
                 .claim("auth_token", args[0])
                 .claim("permissions", linkedHashMap)
                 .signWith(signatureAlgorithm, signingKey);
 
-        long expMillis = nowMillis + acJWTExpirationTtlInMinutes * 60 * 1000;
+        long expMillis = nowMillis + jwtExpirationTtlInMinutes * 60 * 1000;
         Date exp = new Date(expMillis);
         jwtBuilder.setExpiration(exp);
 
